@@ -1,10 +1,14 @@
-# Starter Next/Hardhat Project
+# Project: Single Player Tic Tac Toe - Smart Contract dApp  - Function Frontend
 
-This project is a starter template combining the Next.js framework for front-end development with Hardhat for Ethereum-based smart contract development.
+This project sets up a decentralized application (dApp) for playing a single-player Tic Tac Toe game on the Ethereum blockchain. The smart contract is built using Solidity, and the front-end interface is developed with React and Next.js. This project demonstrates how to integrate a blockchain game using Hardhat, Ethereum, and a user-friendly web interface.
 
 ## Description
 
-The project sets up an environment for developing and deploying smart contracts alongside a user-friendly web interface. It integrates Hardhat for blockchain testing and deployment and Next.js for the client-side interface. This structure is ideal for decentralized applications (dApps) development.
+This application allows a user to connect their MetaMask wallet, start a Tic Tac Toe game, and make moves on the board. The game logic is implemented in a smart contract deployed on the Ethereum blockchain, and the front-end communicates with this contract using Ethers.js.
+
+- **Smart Contract**: A Solidity contract deployed on Ethereum that handles game state, board management, and player actions.
+- **Frontend**: A React/Next.js interface where users can interact with the game and make moves.
+- **Blockchain Integration**: Uses Ethereum and Ethers.js for interaction with the smart contract.
 
 ## Getting Started
 
@@ -14,7 +18,8 @@ Before starting, ensure the following are installed on your machine:
 
 1. **Node.js**: Download and install from [Node.js Official Website](https://nodejs.org).
 2. **npm or yarn**: Comes with Node.js installation. Check if it's installed using `npm -v`.
-3. **VS Code**: Recommended for development ([Download here](https://code.visualstudio.com/)).
+3. **MetaMask**: Install the MetaMask browser extension to interact with the Ethereum blockchain.
+4. **VS Code**: Recommended for development ([Download here](https://code.visualstudio.com/)).
 
 ### Installing
 
@@ -49,7 +54,7 @@ Before starting, ensure the following are installed on your machine:
    npx hardhat run --network localhost scripts/deploy.js
    ```
 
-   This will deploy your smart contracts to the local blockchain.
+   This will deploy your Tic Tac Toe smart contract to the local blockchain.
 
 4. **Run the Front-end**: In the first terminal, start the Next.js development server:
 
@@ -61,17 +66,47 @@ Before starting, ensure the following are installed on your machine:
 
 ## Project Structure
 
-- **contracts/**: Solidity smart contracts.
-- **scripts/**: Deployment scripts for Hardhat.
-- **pages/**: Front-end application files for Next.js.
+- **contracts/**: Contains the Solidity smart contract `SinglePlayerTicTacToe.sol`.
+- **scripts/**: Contains deployment scripts for Hardhat `deploy.js`.
+- **pages/**: Contains front-end application files for Next.js `index.js`.
 - **hardhat.config.js**: Hardhat configuration for blockchain development.
 - **package.json**: Dependencies and project scripts.
+- **artifacts/**: Contains the compiled smart contract ABI and bytecode.
+
+## Smart Contract
+
+The `SinglePlayerTicTacToe.sol` contract implements a Tic Tac Toe game where:
+
+- **startGame**: Initializes the game and sets the first player.
+- **makeMove**: Allows the player to make a move on the board.
+- **getBoard**: Returns the current state of the board.
+- **gameActive**: Indicates whether the game is currently active.
+- **currentSymbol**: Tracks the current player's symbol (X or O).
+- **winner**: The address of the winner once the game ends.
+
+### Smart Contract Functions:
+
+- **startGame**: Starts a new game by setting up an empty board and assigning the first player.
+- **makeMove**: Allows the player to make a move at a specific position on the board.
+- **checkWinner**: Checks if there is a winner based on the current board state.
+- **isBoardFull**: Checks if the board is full and the game is over.
+- **getBoard**: Returns the current board state.
+
+## Front-end Functionality
+
+The front-end application is built using Next.js and allows users to:
+
+1. **Connect to MetaMask**: Users connect their wallet to the dApp using MetaMask.
+2. **Start the Game**: The user can start a new game by calling the `startGame` function.
+3. **Make Moves**: The user can make moves on the Tic Tac Toe board.
+4. **Game State**: Displays the current board, the player's symbol, and the winner once the game ends.
 
 ## Features
 
-- **Smart Contract Development**: Built with Hardhat, allowing contract deployment and testing.
-- **Next.js Integration**: Front-end built with Next.js for a modern, responsive interface.
-- **Local Blockchain Testing**: Includes a Hardhat node for simulating Ethereum blockchain locally.
+- **Smart Contract Integration**: The Tic Tac Toe game logic is entirely managed on-chain, ensuring transparency and immutability.
+- **MetaMask Wallet Integration**: Users must connect their MetaMask wallet to interact with the game.
+- **Real-time Game State**: The front-end fetches the current game state directly from the smart contract.
+- **Player Actions**: Users can make moves, start a new game, and see the winner once the game concludes.
 
 ## Authors
 
