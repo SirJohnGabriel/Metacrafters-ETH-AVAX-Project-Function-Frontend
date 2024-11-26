@@ -9,11 +9,20 @@ contract Assessment {
 
     event Deposit(uint256 amount);
     event Withdraw(uint256 amount);
+    event BalanceReset();
+    event Send(uint256 amount, address destination);
 
     constructor(uint initBalance) payable {
         owner = payable(msg.sender);
         balance = initBalance;
     }
+    
+    function resetBal() public {
+        require(msg.sender == owner, "You are not the owner");
+        balance = 1000000000000000000;
+        emit BalanceReset();
+    }
+    
 
     function getBalance() public view returns(uint256){
         return balance;
@@ -57,4 +66,22 @@ contract Assessment {
         // emit the event
         emit Withdraw(_withdrawAmount);
     }
+
+    function send(uint256 _sendAmount, address payable _destination) public payable{
+        require(msg.sender == owner, "You are not the owner of this account.");
+        require(_destination != address(0), "Invalid recipient address");
+        require(balance >= _sendAmount, "Contract has insufficient balance");
+
+        uint256 _previousBalance = balance;
+
+        balance -= _sendAmount;
+        assert(balance == _previousBalance - _sendAmount);
+
+        _destination.transfer(_sendAmount);
+        // (bool success, ) = _destination.call{value: _sendAmount}("");
+        // require(success, "Transfer failed");
+
+        emit Send(_sendAmount, _destination);
+    }
+
 }
